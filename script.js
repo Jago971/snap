@@ -70,11 +70,11 @@ const faces = [
         value: 13
     }
 ]
+
 const slider = document.getElementById("difficulty")
 const startBtn = document.getElementById("start")
 let side = 'R';
 let difficulty = 0
-
 let cards = [];
 let drawnCards = [];
 let matches = 0;
@@ -94,7 +94,6 @@ function createDeck() {
         })
     });
 }
-createDeck();
 
 function drawCard(cards) {
     let rand = Math.floor(Math.random() * cards.length)
@@ -116,29 +115,63 @@ function startTheClock(difficulty) {
             console.log(`${yourMatches} out of ${matches} matches`)
         } else {
             console.log(side, drawCard(cards))
-            if(sameNumber()) {
+            if(sameNumber() || oneUpOneDown() || equalToTen()) {
                 matches++
             }
         }
     }, difficulty);
 }
 
+function sameNumber() {
+    let currentCard = drawnCards[drawnCards.length - 1]
+    let previousCard = drawnCards[drawnCards.length - 2]
+    if(currentCard.value == previousCard.value) {
+        console.log('match')
+        return true;
+    }
+}
+
+function oneUpOneDown() {
+    let currentCard = drawnCards[drawnCards.length - 1]
+    let previousCard = drawnCards[drawnCards.length - 2]
+    if
+    (
+        currentCard.value - 1 == previousCard.value ||
+        currentCard.value == previousCard.value ||
+        currentCard.value + 1 == previousCard.value
+    )
+    {
+        console.log('match')
+        return true;
+    }
+}
+
+function equalToTen() {
+    let currentCard = drawnCards[drawnCards.length - 1]
+    let previousCard = drawnCards[drawnCards.length - 2]
+    if(currentCard.value + previousCard.value == 10) {
+        console.log('match')
+        return true;
+    }
+}
+
+createDeck();
+
 startBtn.addEventListener("click", () => {
+
+    const card = document.getElementById("card1")
+    card.classList.add("left");
+    setTimeout(() => {
+        card.classList.remove("faceDown")
+    }, 250)
+
     if(startBtn.innerText == "START") {
         let difficulty = 1000 - (slider.value * 100)
         startBtn.innerText = "SNAP";
         startTheClock(difficulty);
     } else if(drawnCards.length >= 2) {
-        if(sameNumber()) {
+        if(sameNumber() || oneUpOneDown() || equalToTen()) {
             yourMatches++;
         }
     }
 })
-
-function sameNumber() {
-    let currentCard = drawnCards[drawnCards.length - 1]
-    let previousCard = drawnCards[drawnCards.length - 2]
-    if(currentCard.value == previousCard.value) {
-        return true;
-    }
-}

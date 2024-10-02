@@ -5,12 +5,51 @@ body {
     margin: 0;
     padding: 0;
 }
-.container {
+.flex {
     display: flex;
-    flex-direction: column;
 }
-button {
-    height: 100px;
-    width: 100%;
-    font-size: 3rem;
+.container {
+    background-color: green;
+    height: 100vh;
+    > div {
+        border: solid 1px;
+    }
+}
+
+.controls {
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+    flex: 1;
+    button {
+        flex: 1
+    }
+}
+.table {
+    flex: 4;
+    position: relative;
+}
+
+.card {
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-inline: auto;
+    align-self: center;
+    background-color: white;
+    width: 15vw;
+    aspect-ratio: 0.75;
+    border-radius: 2vh;
+}
+.faceDown {
+    background-color: red;
+}
+
+.left {
+    transition: all 0.5s;
+    transform: translateX(-150%) scaleX(-1);
+}
+.right {
+    transition: all 0.5s;
+    transform: translateX(150%);
 }
