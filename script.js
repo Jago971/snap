@@ -78,6 +78,7 @@ let difficulty = 0
 let cards = [];
 let drawnCards = [];
 let matches = 0;
+let yourMatches = 0;
 
 function createDeck() {
     suits.forEach(s => {
@@ -104,15 +105,20 @@ function drawCard(cards) {
 }
 
 function startTheClock(difficulty) {
-    let count = cards.length;
+    let count = cards.length + 1;
     const timer = setInterval(function() {
-      count--;
-      console.log(side, drawCard(cards))
-      if (count === 0) {
-        clearInterval(timer);
-        console.log("No more cards!");
-        console.log(`${matches} matches`)
-      }
+        count--;
+        if(drawnCards.length >= 2) {
+            snapSameNumber('')
+        }
+        if(count != 0) {
+            console.log(side, drawCard(cards))
+        }
+        if (count == 0) {
+            clearInterval(timer);
+            console.log("No more cards!");
+            console.log(`${yourMatches} out of ${matches} matches`)
+        }
     }, difficulty);
 }
 
@@ -122,16 +128,18 @@ startBtn.addEventListener("click", () => {
         startBtn.innerText = "SNAP";
         startTheClock(difficulty);
     } else if(drawnCards.length >= 2) {
-        snapSameNumber()
+        snapSameNumber('SNAP')
     }
 })
 
-function snapSameNumber() {
+function snapSameNumber(key) {
     let currentCard = drawnCards[drawnCards.length - 1]
     let previousCard = drawnCards[drawnCards.length - 2]
-    console.log(currentCard.value, previousCard.value)
     if(currentCard.value == previousCard.value) {
-        console.log('MATCH')
         matches ++;
+        console.log("match")
+        if(key = 'SNAP') {
+            yourMatches++;
+        }
     }
 }
