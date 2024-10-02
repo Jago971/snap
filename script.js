@@ -70,10 +70,14 @@ const faces = [
         value: 13
     }
 ]
+const slider = document.getElementById("difficulty")
 const startBtn = document.getElementById("start")
-let player = 'computer';
+let side = 'R';
+let difficulty = 0
 
 let cards = [];
+let drawnCards = [];
+let matches = 0;
 
 function createDeck() {
     suits.forEach(s => {
@@ -93,23 +97,41 @@ createDeck();
 function drawCard(cards) {
     let rand = Math.floor(Math.random() * cards.length)
     let chosenCard =  cards.splice(rand, 1)[0]
-    player == 'computer' ? player = 'player' : player = 'computer';
+    side == 'R' ? side = 'L' : side = 'R';
+    drawnCards.push(chosenCard);
+
     return chosenCard
 }
 
-function startTheClock() {
+function startTheClock(difficulty) {
     let count = cards.length;
     const timer = setInterval(function() {
       count--;
-      console.log(player, drawCard(cards))
+      console.log(side, drawCard(cards))
       if (count === 0) {
         clearInterval(timer);
         console.log("No more cards!");
+        console.log(`${matches} matches`)
       }
-    }, 100);
+    }, difficulty);
 }
 
 startBtn.addEventListener("click", () => {
-    startTheClock();
-    startBtn.innerText = "SNAP";
+    if(startBtn.innerText == "START") {
+        let difficulty = 1000 - (slider.value * 100)
+        startBtn.innerText = "SNAP";
+        startTheClock(difficulty);
+    } else if(drawnCards.length >= 2) {
+        snapSameNumber()
+    }
 })
+
+function snapSameNumber() {
+    let currentCard = drawnCards[drawnCards.length - 1]
+    let previousCard = drawnCards[drawnCards.length - 2]
+    console.log(currentCard.value, previousCard.value)
+    if(currentCard.value == previousCard.value) {
+        console.log('MATCH')
+        matches ++;
+    }
+}
