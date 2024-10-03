@@ -162,7 +162,7 @@ createDeck();
 startBtn.addEventListener("click", () => {
 
     if(startBtn.innerText == "START") {
-        let difficulty = 1000 - (slider.value * 100)
+        let difficulty = 2000 - (slider.value * 100)
         startBtn.innerText = "SNAP";
         startTheClock(difficulty);
     } else if(drawnCards.length >= 2) {
@@ -185,40 +185,41 @@ function moveCards() {
         card1.classList.add("left");
         setTimeout(() => {
             card1.classList.remove("faceDown")
-        }, 150)
+        }, 300)
         setTimeout(() => {
             card3.classList.remove("left")
             card3.classList.add("faceDown")
-        }, 500)
+        }, 1000)
     } else if (cardSide == 2) {
         card2.classList.add("right");
         setTimeout(() => {
             card2.classList.remove("faceDown")
-        }, 150)
+        }, 300)
         setTimeout(() => {
             card4.classList.remove("right")
             card4.classList.add("faceDown")
-        }, 500)
+        }, 1000)
     } else if (cardSide == 3) {
         card3.classList.add("left");
         setTimeout(() => {
             card3.classList.remove("faceDown")
             card3.classList.add("front")
-        }, 150)
+        }, 300)
         setTimeout(() => {
             card1.classList.remove("left")
             card1.classList.add("faceDown")
-        }, 500)
+            card4.classList.add("front")
+        }, 1000)
     } else if (cardSide == 4) {
         card4.classList.add("right");
         setTimeout(() => {
             card4.classList.remove("faceDown")
             card4.classList.add("front")
-        }, 150)
+        }, 300)
         setTimeout(() => {
             card2.classList.remove("right")
             card2.classList.add("faceDown")
-        }, 500)
+        }, 1000)
     }
     if(cardSide == 4) {
         cardSide = 1
