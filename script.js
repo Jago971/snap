@@ -105,6 +105,7 @@ function drawCard(cards) {
 
 function startTheClock(difficulty) {
     let count = cards.length;
+    moveCards()
     console.log(side, drawCard(cards))
 
     const timer = setInterval(function() {
@@ -115,6 +116,7 @@ function startTheClock(difficulty) {
             console.log(`${yourMatches} out of ${matches} matches`)
         } else {
             console.log(side, drawCard(cards))
+            moveCards();
             if(sameNumber() || oneUpOneDown() || equalToTen()) {
                 matches++
             }
@@ -159,12 +161,6 @@ createDeck();
 
 startBtn.addEventListener("click", () => {
 
-    const card = document.getElementById("card1")
-    card.classList.add("left");
-    setTimeout(() => {
-        card.classList.remove("faceDown")
-    }, 250)
-
     if(startBtn.innerText == "START") {
         let difficulty = 1000 - (slider.value * 100)
         startBtn.innerText = "SNAP";
@@ -175,3 +171,58 @@ startBtn.addEventListener("click", () => {
         }
     }
 })
+
+let cardSide = 1;
+
+function moveCards() {
+    console.log(cardSide);
+    const card1 = document.getElementById("card1")
+    const card2 = document.getElementById("card2")
+    const card3 = document.getElementById("card3")
+    const card4 = document.getElementById("card4")
+
+    if(cardSide == 1) {
+        card1.classList.add("left");
+        setTimeout(() => {
+            card1.classList.remove("faceDown")
+        }, 150)
+        setTimeout(() => {
+            card3.classList.remove("left")
+            card3.classList.add("faceDown")
+        }, 500)
+    } else if (cardSide == 2) {
+        card2.classList.add("right");
+        setTimeout(() => {
+            card2.classList.remove("faceDown")
+        }, 150)
+        setTimeout(() => {
+            card4.classList.remove("right")
+            card4.classList.add("faceDown")
+        }, 500)
+    } else if (cardSide == 3) {
+        card3.classList.add("left");
+        setTimeout(() => {
+            card3.classList.remove("faceDown")
+            card3.classList.add("front")
+        }, 150)
+        setTimeout(() => {
+            card1.classList.remove("left")
+            card1.classList.add("faceDown")
+        }, 500)
+    } else if (cardSide == 4) {
+        card4.classList.add("right");
+        setTimeout(() => {
+            card4.classList.remove("faceDown")
+            card4.classList.add("front")
+        }, 150)
+        setTimeout(() => {
+            card2.classList.remove("right")
+            card2.classList.add("faceDown")
+        }, 500)
+    }
+    if(cardSide == 4) {
+        cardSide = 1
+    } else {
+        cardSide++;
+    }
+}
