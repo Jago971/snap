@@ -44,16 +44,28 @@ body {
 }
 .faceDown {
     background-color: red;
+    transform: scaleX(-1);
 }
-
 .left {
-    transition: transform 1s;
-    transform: translateX(-150%) scaleX(-1);
+    transition: transform 0.5s;
+    transform: translateX(-150%) scaleX(1);
 }
 .right {
-    transition: transform 1s;
-    transform: translateX(150%) scaleX(-1);
+    transition: transform 0.5s;
+    transform: translateX(150%) scaleX(1);
 }
 .front {
     z-index: 1;
+}
+.back {
+    z-index: 0;
+}
+.suit, .face {
+    position: absolute;
+}
+.bottomDetail {
+    bottom: 0;
+}
+.rightDetail {
+    right: 0;
 }

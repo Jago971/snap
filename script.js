@@ -1,24 +1,24 @@
 const suits = [
     {
-        suit: 'clubs',
+        suit: '♣',
         color: 'black'
     },
     {
-        suit: 'spades',
+        suit: '♠',
         color: 'black'
     },
     {
-        suit: 'hearts',
+        suit: '♥',
         color: 'red'
     },
     {
-        suit: 'diamonds',
+        suit: '♦',
         color: 'red'
     }
 ]
 const faces = [
     {
-        face: 'ace',
+        face: 'A',
         value: 1
     },
     {
@@ -58,15 +58,15 @@ const faces = [
         value: 10
     },
     {
-        face: 'jack',
+        face: 'J',
         value: 11
     },
     {
-        face: 'queen',
+        face: 'Q',
         value: 12
     },
     {
-        face: 'king',
+        face: 'K',
         value: 13
     }
 ]
@@ -105,8 +105,7 @@ function drawCard(cards) {
 
 function startTheClock(difficulty) {
     let count = cards.length;
-    moveCards()
-    console.log(side, drawCard(cards))
+    moveCards(drawCard(cards))
 
     const timer = setInterval(function() {
         count--;
@@ -115,8 +114,7 @@ function startTheClock(difficulty) {
             console.log("No more cards!");
             console.log(`${yourMatches} out of ${matches} matches`)
         } else {
-            console.log(side, drawCard(cards))
-            moveCards();
+            moveCards(drawCard(cards));
             if(sameNumber() || oneUpOneDown() || equalToTen()) {
                 matches++
             }
@@ -174,52 +172,128 @@ startBtn.addEventListener("click", () => {
 
 let cardSide = 1;
 
-function moveCards() {
-    console.log(cardSide);
+function moveCards(card) {
     const card1 = document.getElementById("card1")
+    const card1suit = card1.querySelectorAll(".suit")
+    const card1face = card1.querySelectorAll(".face")
+
     const card2 = document.getElementById("card2")
+    const card2suit = card2.querySelectorAll(".suit")
+    const card2face = card2.querySelectorAll(".face")
+
     const card3 = document.getElementById("card3")
+    const card3suit = card3.querySelectorAll(".suit")
+    const card3face = card3.querySelectorAll(".face")
+
     const card4 = document.getElementById("card4")
+    const card4suit = card4.querySelectorAll(".suit")
+    const card4face = card4.querySelectorAll(".face")
 
     if(cardSide == 1) {
         card1.classList.add("left");
         setTimeout(() => {
             card1.classList.remove("faceDown")
-        }, 300)
+            card1suit.forEach((suit) => {
+                suit.textContent = card.suit
+            })
+            card1face.forEach((face) => {
+                face.textContent = card.face
+            })
+        }, 150)
         setTimeout(() => {
+            card1.classList.remove("front")
+
             card3.classList.remove("left")
+            card3suit.forEach((suit) => {
+                suit.textContent = ""
+            })
+            card3face.forEach((face) => {
+                face.textContent = ""
+            })
+
             card3.classList.add("faceDown")
-        }, 1000)
+
+            card2.classList.add("front")
+        }, 500)
+
     } else if (cardSide == 2) {
         card2.classList.add("right");
         setTimeout(() => {
             card2.classList.remove("faceDown")
-        }, 300)
+            card2suit.forEach((suit) => {
+                suit.textContent = card.suit
+            })
+            card2face.forEach((face) => {
+                face.textContent = card.face
+            })
+        }, 150)
         setTimeout(() => {
+            card2.classList.remove("front")
+
             card4.classList.remove("right")
+            card4suit.forEach((suit) => {
+                suit.textContent = ""
+            })
+            card4face.forEach((face) => {
+                face.textContent = ""
+            })
+
             card4.classList.add("faceDown")
-        }, 1000)
+
+            card3.classList.add("front")
+        }, 500)
+
     } else if (cardSide == 3) {
         card3.classList.add("left");
         setTimeout(() => {
             card3.classList.remove("faceDown")
-            card3.classList.add("front")
-        }, 300)
+            card3suit.forEach((suit) => {
+                suit.textContent = card.suit
+            })
+            card3face.forEach((face) => {
+                face.textContent = card.face
+            })
+        }, 150)
         setTimeout(() => {
-            card1.classList.remove("left")
-            card1.classList.add("faceDown")
-            card4.classList.add("front")
-        }, 1000)
+            if(drawnCards.length < 50) {
+                card3.classList.remove("front")
+                card1.classList.remove("left")
+                card1.classList.add("faceDown")
+                card4.classList.add("front")
+                card1suit.forEach((suit) => {
+                    suit.textContent = ""
+                })
+                card1face.forEach((face) => {
+                    face.textContent = ""
+                })
+            }
+        }, 500)
+
     } else if (cardSide == 4) {
         card4.classList.add("right");
         setTimeout(() => {
             card4.classList.remove("faceDown")
-            card4.classList.add("front")
-        }, 300)
+            card4suit.forEach((suit) => {
+                suit.textContent = card.suit
+            })
+            card4face.forEach((face) => {
+                face.textContent = card.face
+            })
+        }, 150)
         setTimeout(() => {
-            card2.classList.remove("right")
-            card2.classList.add("faceDown")
-        }, 1000)
+            if(drawnCards.length < 50) {
+                card4.classList.remove("front")
+                card2.classList.remove("right")
+                card2.classList.add("faceDown")
+                card1.classList.add("front")
+                card2suit.forEach((suit) => {
+                    suit.textContent = ""
+                })
+                card2face.forEach((face) => {
+                    face.textContent = ""
+                })
+            }
+        }, 500)
     }
     if(cardSide == 4) {
         cardSide = 1
