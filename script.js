@@ -303,3 +303,4 @@ function moveCards(card) {
         cardSide++;
     }
 }
+//changed something
