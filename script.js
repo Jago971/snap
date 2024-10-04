@@ -16,6 +16,7 @@ const suits = [
         color: 'red'
     }
 ]
+
 const faces = [
     {
         face: 'A',
@@ -98,7 +99,6 @@ function createDeck() {
 function drawCard(cards) {
     let rand = Math.floor(Math.random() * cards.length)
     let chosenCard =  cards.splice(rand, 1)[0]
-    side == 'R' ? side = 'L' : side = 'R';
     drawnCards.push(chosenCard);
     return chosenCard
 }
