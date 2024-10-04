@@ -113,6 +113,8 @@ function startTheClock(difficulty) {
             clearInterval(timer);
             console.log("No more cards!");
             console.log(`${yourMatches} out of ${matches} matches`)
+            let message = document.querySelector("#message>p")
+            message.innerHTML = `You got<br>${yourMatches}<br>out of<br>${matches}<br>matches`
         } else {
             moveCards(drawCard(cards));
             if(sameNumber() || oneUpOneDown() || equalToTen()) {

@@ -30,7 +30,8 @@ body {
     position: relative;
 }
 
-.card {
+.card, #message {
+    padding: 0.5vw;
     position: absolute; 
     left: 0; 
     right: 0; 
@@ -41,6 +42,14 @@ body {
     border-radius: 1vw;
     background-color: white;
     border: solid 2px black;
+}
+#message {
+    background-color: rgb(0, 86, 0);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 .faceDown {
     background-color: red;
@@ -64,8 +73,9 @@ body {
     position: absolute;
 }
 .bottomDetail {
-    bottom: 0;
+    bottom: 0.5vw;
 }
 .rightDetail {
-    right: 0;
+    right: 0.5vw;
 }
+
