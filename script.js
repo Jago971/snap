@@ -82,7 +82,8 @@ let matches = 0;
 let yourMatches = 0;
 let yourLosses = 0;
 
-function createDeck() {
+function createDeck(suits, faces) {
+    let deck = [];
     suits.forEach(s => {
         faces.forEach(f => {
             let card = {
@@ -91,9 +92,10 @@ function createDeck() {
                 face: f.face,
                 value: f.value
             }
-            cards.push(card);
+            deck.push(card);
         })
     });
+    return deck;
 }
 
 function drawCard(cards) {
